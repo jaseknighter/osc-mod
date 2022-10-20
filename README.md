@@ -38,6 +38,8 @@ the controls in your osc client for `number`, `control`, and `taper` params shou
 
 controls in your osc client for `option` params should send numbers from 1 to the `max` value of the param displayed in the mod menu.
 
+controls in your osc client for `trigger` params should send a 1.
+
 controls to change text params are not yet supported.
 
 note: the github repository includes a maxpat ('osc_test.maxpat') that can be used for testing.
