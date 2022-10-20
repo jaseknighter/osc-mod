@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 397.0, 123.0, 640.0, 480.0 ],
+		"rect" : [ 253.0, 87.0, 769.0, 679.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,20 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"fontsize" : 36.0,
+					"id" : "obj-2",
+					"linecount" : 2,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 265.0, 571.0, 477.0, 87.0 ],
+					"presentation_linecount" : 2,
+					"text" : "replace /param1 & /param2 \nwith params from your script"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"fontsize" : 36.0,
 					"id" : "obj-40",
@@ -173,7 +187,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 519.0, 707.0, 747.0, 87.0 ],
+					"patching_rect" : [ 535.0, 873.0, 747.0, 87.0 ],
 					"text" : "<~~ use the IP address shown on your norns!\n(port is always 10111)"
 				}
 
@@ -187,7 +201,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 639.0, 507.0, 90.0, 49.0 ]
+					"patching_rect" : [ 755.0, 507.0, 90.0, 49.0 ]
 				}
 
 			}
@@ -200,7 +214,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 89.0, 507.0, 90.0, 49.0 ]
+					"patching_rect" : [ 53.0, 507.0, 90.0, 49.0 ]
 				}
 
 			}
@@ -211,7 +225,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 25.0, 707.0, 502.0, 49.0 ],
+					"patching_rect" : [ 41.0, 873.0, 502.0, 49.0 ],
 					"text" : "udpsend 127.0.0.1 10111"
 				}
 
@@ -224,7 +238,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 639.0, 599.0, 191.0, 49.0 ],
+					"patching_rect" : [ 755.0, 571.0, 191.0, 49.0 ],
 					"text" : "/param2 $1"
 				}
 
@@ -237,7 +251,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 89.0, 599.0, 191.0, 49.0 ],
+					"patching_rect" : [ 53.0, 575.0, 191.0, 49.0 ],
 					"text" : "/param1 $1"
 				}
 
@@ -279,6 +293,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-14", 0 ],
+					"midpoints" : [ 764.5, 751.0, 50.5, 751.0 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
