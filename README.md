@@ -5,7 +5,7 @@ an osc ([open sound control](https://monome.org/docs/norns/reference/osc)) mod s
 ## requirements
 
 * norns (required)
-* osc sender/receiver (e.g. max/msp, lemur, etc.)
+* an osc sender/receiver (e.g. max/msp, lemur, etc.)
 
 ## installation
 
@@ -45,7 +45,7 @@ controls in your osc client for `trigger` params should send a 1.
 controls to change text params are not yet supported.
 
 ### maxpat example
-in the lib folder of the github repository, there is a maxpat called 'osc_test.maxpat' that can be used for testing. it is based on the maxpat in the norns [osc reference](https://monome.org/docs/norns/reference/osc).
+in the script's '/lib' folder, there is a maxpat called 'osc_test.maxpat' that can be used for testing. it is based on the maxpat in the norns [osc reference](https://monome.org/docs/norns/reference/osc).
 
 ## feature roadmap
 * fix bugs (e.g. not sure if code to set trigger params via osc is working)
