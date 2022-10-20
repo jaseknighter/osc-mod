@@ -20,7 +20,7 @@ the idea for the script came from a project i am working on to send capacitive t
 * @eigen for spiffy params inspection code
 
 ## documentation
-after installing the mod and restarting, turn on the mod (SYSTEM>MODS>OSC-MOD) + E3, restart norns, and load a script.
+after installing the mod and restarting, turn on the mod (instructions [here](https://monome.org/docs/norns/community-scripts/#installing-a-mod)), restart norns, and load a script.
 
 once the mod has been enabled and a norns script has been loaded, configure your osc client to send messages to norns (use your norns' ip address and port 10111).
 
