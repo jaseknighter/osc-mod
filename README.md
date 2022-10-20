@@ -24,7 +24,7 @@ after installing the mod and restarting, turn on the mod (SYSTEM>MODS>OSC-MOD) +
 
 once the mod has been enabled and a norns script has been loaded, configure your osc client to send messages to norns (use your norns' ip address and port 10111).
 
-got to the mod (SYSTEM>MODS>OSC-MOD) to review the available params. use E2 to cycle through the params. make note of the `osc addr` values of the params you want to control via osc (e.g. `/engine_level`). 
+got to the mod (SYSTEM>MODS>OSC-MOD) to review the available params. use E2 to cycle through the params. make note of the `osc addr` values of the params you want to control via osc (e.g. `/engine_level`). use K1+K3 to save the params for the currently loaded script to the norns filesystem at: /we/dust/data/osc-mod.
 
 create the controls in your osc client using the `osc addr` values you found in the osc-mod menu. 
 
