@@ -2,6 +2,8 @@
 
 an osc ([open sound control](https://monome.org/docs/norns/reference/osc)) mod script for monome norns.
 
+this mod allows the params from any norns script to be controlled via osc.
+
 ## requirements
 
 * norns (required)
@@ -25,9 +27,9 @@ the idea for the script came from a project i am working on to send capacitive t
 ### navigation
 navigate to the mod in the system menu (SYSTEM>MODS>OSC-MOD) to review the available params for the currently loaded script. 
 
-E2 to cycle through the params. make note of the `osc addr` values of the params you want to control via osc (e.g. `/engine_level`). 
+E2 to cycle through the params. K1+E2 to jump to the prev/next params group for faster navigation.
 
-K1+E2 to jump to the next params group for faster navigation.
+make note of the `osc addr` values of the params you want to control via osc (e.g. `/engine_level`). 
 
 K1+K3 to save the params for the currently loaded script to the norns filesystem at: /we/dust/data/osc-mod.
 
