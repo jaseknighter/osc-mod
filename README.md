@@ -1,6 +1,7 @@
 # osc mod
 
-an osc ([open sound control](https://monome.org/docs/norns/reference/osc))
+an osc ([open sound control](https://monome.org/docs/norns/reference/osc)) mod script for monome norns.
+
 ## requirements
 
 * norns (required)
