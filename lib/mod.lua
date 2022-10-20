@@ -61,7 +61,7 @@ function osc.event(path,args,from)
     params:set(param, mapped_val)
     print(param, mapped_val)
   elseif type == 6 then  -- 6: trigger
-    if val == 127 then
+    if val == 1 then
       params:set(param, 1)
     end
   end     
