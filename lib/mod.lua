@@ -59,7 +59,7 @@ function osc.event(path,args,from)
     local pre_mapped_val = util.linlin(1,127,0,1,val)
     mapped_val = params:lookup_param(param).controlspec:map(pre_mapped_val)
     params:set(param, mapped_val)
-    print(param, mapped_val)
+    -- print(param, mapped_val)
   elseif type == 6 then  -- 6: trigger
     if val == 1 then
       params:set(param, 1)
