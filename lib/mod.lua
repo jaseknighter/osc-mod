@@ -5,10 +5,6 @@
 
 local mod = require 'core/mods'
 
-fn = include ("osc-mod/lib/functions")
-scroll_text = include("osc-mod/lib/scroll_text")
-osc_comms = include ("osc-mod/lib/osc_comms")
-
 --
 -- [optional] a mod is like any normal lua module. local variables can be used
 -- to hold any state which needs to be accessible across hooks, the menu, and
@@ -19,7 +15,8 @@ osc_comms = include ("osc-mod/lib/osc_comms")
 
 local state = {
   sel_param = 1,
-  mod_displaying = false
+  mod_displaying = false,
+  k1_active = false
 }
 
 --------------------------
@@ -139,15 +136,37 @@ end)
 local m = {}
 
 m.key = function(n, z)
-  if n == 2 and z == 1 then
+  if n == 1 and z == 1 then
+    state.k1_active = true
+  elseif n == 1 and z == 0 then
+    state.k1_active = false
+  elseif n == 2 and z == 1 then
     -- return to the mod selection menu
     mod.menu.exit()
+  elseif n == 3 and z == 0 and state.k1_active and norns.state.name ~= "none" then
+    p_list:write_params()
   end
 end
 
+  
 m.enc = function(n, d)
-  if n == 2 then state.sel_param = util.wrap(state.sel_param + d, 1, #p_list.lookup)  end
-  -- elseif n == 3 then state.y = state.y + d end
+  if n == 2 then 
+    if state.k1_active then
+      local found_separator_sub_menu = false
+      while found_separator_sub_menu == false and state.k1_active do
+        state.sel_param =  util.wrap(state.sel_param+d,1,#p_list.lookup)
+        local p_name = p_list.lookup[state.sel_param].name
+        local p_id = p_list.lookup[state.sel_param].id
+        -- if string.find(p_name,"<<") == 1 and string.find(p_name,">>") == #p_name-1 then
+        if string.find(p_name,">>") ~= nil and params:lookup_param(p_id).t == 7 then
+          -- print("input separator: ",p_name)
+          found_separator_sub_menu = true
+        end
+      end
+    else
+      state.sel_param = util.wrap(state.sel_param + d, 1, #p_list.lookup)  
+    end
+  end
 end
 
 m.redraw = function()
@@ -155,7 +174,6 @@ m.redraw = function()
   screen.level(15)
   if #p_list.lookup > 0 then
     screen.aa(0)
-    -- osc_comms:display()
     if state.sel_param then
       p_list:display(state.sel_param)
     end

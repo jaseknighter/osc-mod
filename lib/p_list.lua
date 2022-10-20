@@ -3,6 +3,9 @@
 -- todo: fix mappings when input/output spans positive & negative for types other than control
           -- note: see how controlspec maping/unmaping appears to address this????
 
+local fn = include ("osc-mod/lib/functions")
+local scroll_text = include("osc-mod/lib/scroll_text")
+
 local p_list              = {}
 p_list.lookup             = {}
 p_list.params             = {}
@@ -244,7 +247,6 @@ function p_list:display(s_param)
     param_type = ""
   end
 
-  
   if min and max then 
     param_min = min
     param_max = max
@@ -279,28 +281,125 @@ function p_list:display(s_param)
   screen.text_right(p_name)
 
   screen.move(4,30)
-  screen.text("osc addr: ")
-  screen.move(123,30)
+  if param and param.t ~= 0 and param.t ~= 7 then
+    screen.text("osc addr: ")
+    screen.move(123,30)
+    -- screen.text_right(param_addr)
+    screen.text_right(self.scrolling_addr.get_text())  
+    screen.move(4,38)
+    screen.text("type: ")
+    screen.move(123,38)
+    screen.text_right(param_type)
+    screen.move(4,46)
+    screen.text("min:")
+    screen.move(123,46)
+    screen.text_right(param_min)
+    screen.move(4,54)
+    screen.text("max:")
+    screen.move(123,54)
+    screen.text_right(param_max)
+    screen.move(4,62)
+    screen.text("curr val:")
+    screen.move(123,62)
+    screen.text_right(param_value)
+  else
+    screen.text("type: ")
+    screen.move(123,30)
+    screen.text_right(param_type)
+  end
+end
 
-  -- screen.text_right(param_addr)
-  screen.text_right(self.scrolling_addr.get_text())
+function p_list:write_params()
+  local dirname = _path.data.."osc-mod/"
+  local script_params_list = dirname..norns.state.name.."_params.txt"
+  if os.rename(dirname, dirname)==nil then
+    os.execute("mkdir " .. dirname)
+  end
+  script_params_list_file = io.open(script_params_list, "w+")
+  io.output(script_params_list_file)
+  for i=1,#self.lookup,1 do
+    local sel_param = i
+
+    local param_id = self.lookup[sel_param].id and self.lookup[sel_param].id 
+    local param = param_id and params:lookup_param(param_id)
+    -- local pvals = param and p_list:get_param_props(param)
+    local param_value = (param and param.t ~= 0 and param.t ~= 7) and params:get(param.id) or "n/a"
+    param_value = type(param_value) == "number" and fn.round_decimals (param_value, 4) or param_value
   
-  screen.move(4,38)
-  screen.text("type: ")
-  screen.move(123,38)
-  screen.text_right(param_type)
-  screen.move(4,46)
-  screen.text("min:")
-  screen.move(123,46)
-  screen.text_right(param_min)
-  screen.move(4,54)
-  screen.text("max:")
-  screen.move(123,54)
-  screen.text_right(param_max)
-  screen.move(4,62)
-  screen.text("curr val:")
-  screen.move(123,62)
-  screen.text_right(param_value)
+    local p_name = self.lookup[sel_param].name
+    param_id = (param_id ~= nil and param_id ~= "separator") and param_id or "n/a"
+    local param_addr = "/" .. param_id
+
+    
+
+    local param_type
+    local param_min, param_max
+    local min, max
+
+    if param then
+      if param.t == 0 then
+        param_type = "separator"
+        param_addr = "n/a"
+      elseif param.t == 1 then
+        param_type = "number"
+      elseif param.t == 2 then
+        param_type = "options"
+      elseif param.t == 3 then
+        param_type = "control"
+      elseif param.t == 6 then
+        param_type = "trigger"
+      elseif param.t == 7 then
+        param_type = "group"
+        param_addr = "n/a"
+      elseif param.t == 8 then
+        param_type = "text"
+      else
+        param_type = "n/a"
+      end
+
+      if param.t == 1 then      -- 1: number
+        min = param.min
+        max = param.max
+      elseif param.t == 2 then  -- 2: options
+        min = 1
+        max = param.count
+      elseif param.t == 3 then  -- 3: control
+        -- local raw = param.raw
+        min = param.controlspec.minval
+        max = param.controlspec.maxval
+      elseif param.t == 5 then  -- 5: taper
+        min = param.min
+        max = param.max
+      end     
+    else
+      param_type = ""
+    end
+
+    if min and max then 
+      param_min = min
+      param_max = max
+    else
+      param_min = "n/a"
+      param_max = "n/a"
+    end
+
+
+    io.write("----- params: " .. sel_param .. " of " .. #self.lookup .. " ----- \n")
+    
+    if param and param.t ~= 0 and param.t ~= 7 then
+      io.write("    name: " .. p_name .. " \n")
+      io.write("    type: " .. param_type .. " \n")
+      io.write("    osc addr: " .. param_addr .. " \n")
+      io.write("    min: " .. param_min .. " \n")
+      io.write("    max:" .. param_max .. " \n")
+    else
+      io.write("    name: " .. p_name .. " \n")
+      io.write("    type: " .. param_type .. " \n")
+    end  
+    io.write(" \n")
+  end
+  io.close(script_params_list_file)  
+  print("script params written to: " .. script_params_list)
 end
 
 return p_list

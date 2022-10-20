@@ -12,18 +12,18 @@ function scroll_text:new(text_to_scroll)
   -- st.text_to_scroll = #text_to_scroll <= st.scr_max_length and text_to_scroll or "> " .. text_to_scroll .. " "
   st.clipped_text_to_scroll = st.text_to_scroll
 
-  if #st.text_to_scroll > st.scr_max_length then
+  if #text_to_scroll > st.scr_max_length then
     st.scr_step_metro = metro.init()
   end
 
   function st.init()
     --startup scrolling metro
     if st.scr_step_metro then
-      if #st.text_to_scroll > st.scr_max_length then
+      if #text_to_scroll > st.scr_max_length then
         st.scr_step_metro.event = st.scroll
         st:scr_start_stop_metro()
       end
-    elseif #st.text_to_scroll > st.scr_max_length then
+    elseif #text_to_scroll > st.scr_max_length then
       print("ERROR: st.scr_step_metro not found, reinit", st.scr_step_metro)
     end
   end
@@ -48,7 +48,7 @@ function scroll_text:new(text_to_scroll)
       local scr_head = ""
       local scr_tail = ""
 
-      if (#st.text_to_scroll > st.scr_max_length) then
+      if (#text_to_scroll > st.scr_max_length) then
         scr_text = st.text_to_scroll
         scr_head = string.sub(scr_text,1, 1)
         scr_tail = string.sub(scr_text,2)
